@@ -2,7 +2,6 @@
 
 ##Práctico No 6
 
-
 ##Tema: Puerto.
 
 **Enunciado**
@@ -30,3 +29,7 @@ producto entre la cantidad y el precio por tonelada, actualmente el precio
 establecido por tonelada es de $600) tanto de manera ascendente como 
 
 descendente.
+
+###Integrantes:
+- Fuens, Franco.
+- Soko, Bruno.
