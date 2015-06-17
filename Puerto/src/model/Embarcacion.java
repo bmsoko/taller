@@ -1,4 +1,4 @@
-package puerto.model;
+package model;
 
 public class Embarcacion {
 

@@ -1,14 +1,14 @@
-package puerto.view;
+package view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import puerto.model.Anden;
-import puerto.model.ColaVector;
-import puerto.model.DesbordamientoInferior;
-import puerto.model.DesbordamientoSuperior;
-import puerto.model.Descarga;
-import puerto.model.Embarcacion;
+import model.Anden;
+import model.ColaVector;
+import model.DesbordamientoInferior;
+import model.DesbordamientoSuperior;
+import model.Descarga;
+import model.Embarcacion;
 
 public class AppMain {
 
