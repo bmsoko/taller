@@ -9,6 +9,9 @@ import model.DesbordamientoInferior;
 import model.DesbordamientoSuperior;
 import model.Descarga;
 import model.Embarcacion;
+import model.IteradoraDoble;
+import model.ListaEnlazadaDoble;
+import model.ListaIteradoraOrdenada;
 
 public class AppMain {
 
@@ -20,6 +23,11 @@ public class AppMain {
 	private static ArrayList<Anden> andenes = new ArrayList<Anden>();
 	private static ArrayList<Descarga> descargas = new ArrayList<Descarga>();
 	private static ColaVector listaEspera = new ColaVector(500);
+	// br1
+	static ListaEnlazadaDoble listado = new ListaEnlazadaDoble();
+	static ListaIteradoraOrdenada iteradorListado = new ListaIteradoraOrdenada(
+			listado);
+
 
 	public static void main(String[] args) {
 		// iniciamos los 3 andenes
@@ -46,11 +54,10 @@ public class AppMain {
 				descargarEmbarcacionesEnAndenes();
 				break;
 			case 4:
-				// mostrar
-
+				listarEmbarcacionesAtendidasAscendente();
 				break;
 			case 5:
-
+				listarEmbarcacionesAtendidasDescendentes();
 				break;
 			case 6:
 				System.out
@@ -66,6 +73,19 @@ public class AppMain {
 
 	}
 
+	private static void listarEmbarcacionesAtendidasDescendentes() {
+		// Aqui se van a listar Ascendentemente e imprimir los barcos que
+		// pasaron por cada anden.
+
+	}
+
+	private static void listarEmbarcacionesAtendidasAscendente() {
+		// Aqui se van a listar descendentemente e imprimir los barcos que
+		// pasaron por cada anden.
+
+	}
+
+	@SuppressWarnings("unused")
 	private static void descargarEmbarcacionesEnAndenes() {
 		Anden andenSelecc = null;
 		String conf = null;
@@ -97,7 +117,8 @@ public class AppMain {
 			// Creación de una nueva descarga de los barcos atendidos
 			descargas.add(new Descarga(andenSelecc.getEmbEnAtendimiento(),
 					andenSelecc));
-
+			// Antes de liberar el anden, se guarda el mismo en la lista.
+			iteradorListado.insertar(andenSelecc);
 			// Liberación del anden
 			andenSelecc.setEmbEnAtendimiento(null);
 
@@ -143,7 +164,6 @@ public class AppMain {
 					.quitarPrimero()));
 
 		} catch (DesbordamientoInferior e) {
-			// TODO Auto-generated catch block
 			System.out.println("No hay embarcaciones por atender: "
 					+ e.getMessage());
 		} catch (Exception e) {
@@ -213,6 +233,8 @@ public class AppMain {
 		System.out.println("1- Registrar Embarcación");
 		System.out.println("2- Atender Embarcación");
 		System.out.println("3- Descargar Embarcación");
+		System.out.println("4- Listar Ascendentemente Barcos Atendidos");
+		System.out.println("5- Listar Descendentemente Barcos Atendidos");
 		System.out.println("6- Salir");
 
 	}
