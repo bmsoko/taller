@@ -1,9 +1,8 @@
-package model;
+package puerto.model;
 
 public class DesbordamientoInferior extends Exception {
-	
-	public DesbordamientoInferior(String ms)
-	{
+
+	public DesbordamientoInferior(String ms) {
 		super(ms);
 	}
 
