@@ -25,7 +25,6 @@ public class ListaEnlazadaDoble implements ListaDoble {
 
 	@Override
 	public boolean esVacia() {
-		// TODO Auto-generated method stub
 		if (this.getCabecera().getSiguiente() == fin)
 			return true;
 		return false;

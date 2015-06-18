@@ -1,6 +1,6 @@
 package model;
 
-public class Descarga {
+public class Descarga implements Comparable{
 
 	private Embarcacion barcoAtendido;
 	private Anden andenAtencion;
@@ -25,6 +25,17 @@ public class Descarga {
 
 	public void setAndenAtencion(Anden andenAtencion) {
 		this.andenAtencion = andenAtencion;
+	}
+
+	@Override
+	public int compareTo(Comparable dato) {
+		if (((Embarcacion)dato).getCarga() > this.getBarcoAtendido().getCarga())
+		{
+			return 1;	
+		}else if (((Embarcacion)dato).getCarga() < this.getBarcoAtendido().getCarga()) {
+			return -1;
+		}
+		return 0;
 	}
 
 }

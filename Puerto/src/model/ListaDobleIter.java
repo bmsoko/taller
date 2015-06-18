@@ -150,6 +150,13 @@ public class ListaDobleIter implements IteradoraDoble {
 		}
 
 	}
+	
+	public void retroceder() {
+		if (actual != null) {
+			actual = actual.getAnterior();
+		}
+
+	}
 
 	/*
 	 * Coloca el actual en el ultimo elemento de la lista. Esta operacion es

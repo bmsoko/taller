@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import model.Anden;
 import model.ColaVector;
+import model.Comparable;
 import model.DesbordamientoInferior;
 import model.DesbordamientoSuperior;
 import model.Descarga;
@@ -21,19 +22,20 @@ public class AppMain {
 
 	private static Scanner sc = new Scanner(System.in);
 	private static ArrayList<Anden> andenes = new ArrayList<Anden>();
-	private static ArrayList<Descarga> descargas = new ArrayList<Descarga>();
+	//private static ArrayList<Descarga> descargas = new ArrayList<Descarga>();
 	private static ColaVector listaEspera = new ColaVector(500);
+	private static int precioPorTonelada = 600;
 	// br1
 	static ListaEnlazadaDoble listado = new ListaEnlazadaDoble();
-	static ListaIteradoraOrdenada iteradorListado = new ListaIteradoraOrdenada(
+	static ListaIteradoraOrdenada descargas = new ListaIteradoraOrdenada(
 			listado);
 
 
 	public static void main(String[] args) {
 		// iniciamos los 3 andenes
-		andenes.add(new Anden(001, "Anden1"));
-		andenes.add(new Anden(002, "Anden2"));
-		andenes.add(new Anden(003, "Anden3"));
+		andenes.add(new Anden(1, "Anden1"));
+		andenes.add(new Anden(2, "Anden2"));
+		andenes.add(new Anden(3, "Anden3"));
 		menu();
 
 	}
@@ -61,7 +63,7 @@ public class AppMain {
 				break;
 			case 6:
 				System.out
-						.println("Trabajo realizado por Bruno Soko y Franco Funes");
+				.println("Trabajo realizado por Bruno Soko y Franco Funes");
 				break;
 
 			default:
@@ -76,12 +78,44 @@ public class AppMain {
 	private static void listarEmbarcacionesAtendidasDescendentes() {
 		// Aqui se van a listar Ascendentemente e imprimir los barcos que
 		// pasaron por cada anden.
+		System.out.println("Listado descendente de embarcaciones por monto facturado");
+		System.out.println("=======================================================");
+		//Agregar aca la validacion de si esta vacia la lista.
+		descargas.ultimo();
+		Descarga descAux = null;
+
+		while(descargas.getActual().getAnterior() == null){
+			descAux = (Descarga) descargas.getActual().getDato();
+
+			System.out.println("Nombre Barco: " + descAux.getBarcoAtendido().getNombre() + "Carga Facturada: $" + 
+					descAux.getBarcoAtendido().getCarga() * precioPorTonelada );
+			
+			descargas.retroceder();
+
+		}
 
 	}
+
+	
 
 	private static void listarEmbarcacionesAtendidasAscendente() {
 		// Aqui se van a listar descendentemente e imprimir los barcos que
 		// pasaron por cada anden.
+		System.out.println("Listado ascendente de embarcaciones por monto facturado");
+		System.out.println("=======================================================");
+		//Agregar aca la validacion de si esta vacia la lista.
+		descargas.primero();
+		Descarga descAux = null;
+
+		while(descargas.getActual().getSiguiente() == null){
+			descAux = (Descarga) descargas.getActual().getDato();
+
+			System.out.println("Nombre Barco: " + descAux.getBarcoAtendido().getNombre() + "Carga Facturada: $" + 
+					descAux.getBarcoAtendido().getCarga() * precioPorTonelada );
+			
+			descargas.avanzar();
+
+		}
 
 	}
 
@@ -94,11 +128,11 @@ public class AppMain {
 		// Mostrar andenes ocupados
 		if (mostrarAndenesOcupados()) {
 			System.out
-					.println("Ingrese el Identificador del andén a seleccionar:");
+			.println("Ingrese el Identificador del andén a seleccionar:");
 			andenSelecc = seleccionarAnden(sc.nextInt());
 		} else {
 			System.out
-					.println("No hay embarcaciones por descargar en los andenes del puerto");
+			.println("No hay embarcaciones por descargar en los andenes del puerto");
 		}
 
 		try {
@@ -106,7 +140,7 @@ public class AppMain {
 					+ andenSelecc.getEmbEnAtendimiento().getNombre());
 			do {
 				System.out
-						.println("¿Confirma que quiere realizar la operación?(S/N)");
+				.println("¿Confirma que quiere realizar la operación?(S/N)");
 				conf = sc.next();
 			} while (conf.compareToIgnoreCase("S") != 0
 					&& conf.compareToIgnoreCase("N") != 0);
@@ -115,10 +149,9 @@ public class AppMain {
 						"El anden seleccionado no existe, intente nuevamente");
 
 			// Creación de una nueva descarga de los barcos atendidos
-			descargas.add(new Descarga(andenSelecc.getEmbEnAtendimiento(),
+			descargas.insertar(new Descarga(andenSelecc.getEmbEnAtendimiento(),
 					andenSelecc));
-			// Antes de liberar el anden, se guarda el mismo en la lista.
-			iteradorListado.insertar(andenSelecc);
+
 			// Liberación del anden
 			andenSelecc.setEmbEnAtendimiento(null);
 
@@ -130,7 +163,6 @@ public class AppMain {
 	}
 
 	private static void atenderEmbarcacion() {
-		//
 		Anden andenSelecc = null;
 		String conf = null;
 		System.out.println("Atendimiento de embarcaciones");
@@ -138,30 +170,33 @@ public class AppMain {
 		System.out.println("Seleccione un andén libre: ");
 		if (mostrarAndenesLibres()) {
 			System.out
-					.println("Ingrese el Identificador del andén a seleccionar:");
+			.println("Ingrese el Identificador del andén a seleccionar:");
 			andenSelecc = seleccionarAnden(sc.nextInt());
 
 		} else {
 			System.out
-					.println("No hay andenes disponibles, intente nuevamente mas tarde");
+			.println("No hay andenes disponibles, intente nuevamente mas tarde");
 		}
 
 		try {
 			System.out.println("La embarcación a atender es: "
 					+ ((Embarcacion) listaEspera.primero()).getNombre());
+			
 			do {
 				System.out
-						.println("¿Confirma que quiere realizar la operación?(S/N)");
+				.println("¿Confirma que quiere realizar la operación?(S/N)");
 				conf = sc.next();
 			} while (conf.compareToIgnoreCase("S") != 0
 					&& conf.compareToIgnoreCase("N") != 0);
+			// Asociacion a un anden y quitado de lista de espera
+			andenSelecc.setEmbEnAtendimiento(((Embarcacion) listaEspera
+					.quitarPrimero()));
+
 			if (andenSelecc == null)
 				throw new Exception(
 						"El anden seleccionado no existe, intente nuevamente");
 
-			// Asociacion a un anden y quitado de lista de espera
-			andenSelecc.setEmbEnAtendimiento(((Embarcacion) listaEspera
-					.quitarPrimero()));
+
 
 		} catch (DesbordamientoInferior e) {
 			System.out.println("No hay embarcaciones por atender: "
@@ -223,7 +258,7 @@ public class AppMain {
 		} catch (DesbordamientoSuperior e) {
 			// TODO Auto-generated catch block
 			System.out
-					.println("Se ha superado la capacidad de atención del puerto, espere a que se vacie la lista y vuelva a intentar");
+			.println("Se ha superado la capacidad de atención del puerto, espere a que se vacie la lista y vuelva a intentar");
 		}
 	}
 
