@@ -4,7 +4,6 @@ public class ListaIteradoraOrdenada extends ListaDobleIter {
 
 	public ListaIteradoraOrdenada(ListaDoble lista) throws ClassCastException {
 		super(lista);
-		// TODO Auto-generated constructor stub
 		NodoListaDoble actual;
 	}
 
