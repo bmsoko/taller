@@ -2,8 +2,8 @@ package model;
 
 public class ListaDobleIter implements IteradoraDoble {
 
-	private ListaEnlazadaDoble lista;
-	private NodoListaDoble actual;
+	protected ListaEnlazadaDoble lista;
+	protected NodoListaDoble actual;
 
 	public ListaDobleIter(ListaEnlazadaDoble lista) {
 		this.lista = lista;
@@ -163,7 +163,7 @@ public class ListaDobleIter implements IteradoraDoble {
 	 * válida para listas vacias.
 	 */
 	public void ultimo() {
-		actual = lista.getFin();
+		actual = lista.getFin().getAnterior();
 	}
 
 	public int tamanyo() {
@@ -181,8 +181,6 @@ public class ListaDobleIter implements IteradoraDoble {
 		return lista;
 	}
 
-	public void setLista(ListaEnlazadaDoble lista) {
-		this.lista = lista;
-	}
+	
 
 }

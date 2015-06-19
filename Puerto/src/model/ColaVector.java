@@ -56,8 +56,8 @@ public class ColaVector implements Cola {
 		if (esVacia())
 			throw new DesbordamientoInferior("Cola Vacia");
 		tamanyoActual--;
-		cabeza = incrementar(cabeza);
 		Object aux = S[cabeza];
+		cabeza = incrementar(cabeza);
 		return aux;
 	}
 

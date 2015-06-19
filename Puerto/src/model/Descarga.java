@@ -29,10 +29,10 @@ public class Descarga implements Comparable{
 
 	@Override
 	public int compareTo(Comparable dato) {
-		if (((Embarcacion)dato).getCarga() > this.getBarcoAtendido().getCarga())
+		if (((Descarga)dato).getBarcoAtendido().getCarga() > this.getBarcoAtendido().getCarga())
 		{
 			return 1;	
-		}else if (((Embarcacion)dato).getCarga() < this.getBarcoAtendido().getCarga()) {
+		}else if (((Descarga)dato).getBarcoAtendido().getCarga() < this.getBarcoAtendido().getCarga()) {
 			return -1;
 		}
 		return 0;

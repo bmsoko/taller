@@ -84,7 +84,7 @@ public class AppMain {
 		descargas.ultimo();
 		Descarga descAux = null;
 
-		while(descargas.getActual().getAnterior() == null){
+		while(descargas.getActual().getAnterior() != null){
 			descAux = (Descarga) descargas.getActual().getDato();
 
 			System.out.println("Nombre Barco: " + descAux.getBarcoAtendido().getNombre() + "Carga Facturada: $" + 
@@ -107,7 +107,7 @@ public class AppMain {
 		descargas.primero();
 		Descarga descAux = null;
 
-		while(descargas.getActual().getSiguiente() == null){
+		while(descargas.getActual().getSiguiente() != null){
 			descAux = (Descarga) descargas.getActual().getDato();
 
 			System.out.println("Nombre Barco: " + descAux.getBarcoAtendido().getNombre() + "Carga Facturada: $" + 
@@ -157,7 +157,7 @@ public class AppMain {
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			descargarEmbarcacionesEnAndenes();
+			//descargarEmbarcacionesEnAndenes();
 		}
 
 	}
@@ -189,8 +189,8 @@ public class AppMain {
 			} while (conf.compareToIgnoreCase("S") != 0
 					&& conf.compareToIgnoreCase("N") != 0);
 			// Asociacion a un anden y quitado de lista de espera
-			andenSelecc.setEmbEnAtendimiento(((Embarcacion) listaEspera
-					.quitarPrimero()));
+			Embarcacion embAux=(Embarcacion)listaEspera.quitarPrimero();
+			andenSelecc.setEmbEnAtendimiento(embAux);
 
 			if (andenSelecc == null)
 				throw new Exception(

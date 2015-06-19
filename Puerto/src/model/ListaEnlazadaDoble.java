@@ -6,8 +6,9 @@ public class ListaEnlazadaDoble implements ListaDoble {
 	private NodoListaDoble fin;
 
 	public ListaEnlazadaDoble() {
-		this.cabecera = new NodoListaDoble(null, fin, null);
+		this.cabecera = new NodoListaDoble(null, null, null);
 		this.fin = new NodoListaDoble(null, null, cabecera);
+		this.cabecera.setSiguiente(fin);
 
 	}
 
