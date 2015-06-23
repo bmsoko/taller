@@ -150,7 +150,7 @@ public class ListaDobleIter implements IteradoraDoble {
 		}
 
 	}
-	
+
 	public void retroceder() {
 		if (actual != null) {
 			actual = actual.getAnterior();
@@ -180,7 +180,5 @@ public class ListaDobleIter implements IteradoraDoble {
 	public ListaEnlazadaDoble getLista() {
 		return lista;
 	}
-
-	
 
 }
