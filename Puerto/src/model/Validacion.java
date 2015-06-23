@@ -16,14 +16,12 @@ public class Validacion {
 	}
 
 	public static void negativo(Double carga) throws MiExcepcion{
-//		Double cargado = Double.parseDouble(carga);
-
 		if (carga < 0) {
-			throw new MiExcepcion("La carga ingresada no puede ser negativa.");
+			throw new MiExcepcion("Ha ingresado cantidad de carga erronea, la misma no puede ser negativa. Intente nuevamente");
 		}
 
 		if (carga > 99000) {
-			throw new MiExcepcion("Revise la carga ingresada, la misma seria imposible que supere 99000.");
+			throw new MiExcepcion("Ha ingresado cantidad de carga erronea, la misma no puede superar 99000 Toneladas. Intente nuevamente.");
 		}
 		return;
 	}
@@ -31,19 +29,11 @@ public class Validacion {
 	public static boolean esNumero(String carga) throws MiExcepcion {
 
 		if (!carga.matches("[0-9]*")){
-			throw new MiExcepcion("Ha ingresado dato equivocado, el mismo no puede ser texto.");	
+			throw new MiExcepcion("Ha ingresado un dato erroneo, el mismo no puede ser texto. Intente nuevamente.");	
 		}
 
 		return true;
 
 	}
-
-//	public static void tieneCaracteresEsp(Object carga) throws MiExcepcion {
-//		if (carga instanceof String){
-//			throw new MiExcepcion("Ha ingresado dato equivocado, el mismo no puede ser texto");
-//		}
-//
-//
-//	}
 
 }

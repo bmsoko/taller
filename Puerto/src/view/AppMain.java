@@ -155,24 +155,25 @@ public class AppMain {
 				conf = sc.next();
 			} while (conf.compareToIgnoreCase("S") != 0
 					&& conf.compareToIgnoreCase("N") != 0);
+
 			if (conf.compareToIgnoreCase("N") == 0 ){
-				imprimirMenu();
+				menu();
 			}else{
 				// Creación de una nueva descarga de los barcos atendidos
 				descargas.insertar(new Descarga(andenSelecc.getEmbEnAtendimiento(),
 						andenSelecc));
-
 				// Liberación del anden
 				andenSelecc.setEmbEnAtendimiento(null);
+				System.out.println("La descarga de la embarcaion se realizo con exito!! ");
+				System.out.println();
 			}
 			if (andenSelecc == null)
 				throw new Exception(
 						"El anden seleccionado no existe, intente nuevamente");
-
-
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			// descargarEmbarcacionesEnAndenes();
+			System.out.println();
+			descargarEmbarcacionesEnAndenes();
 		}
 
 	}
@@ -180,6 +181,7 @@ public class AppMain {
 	private static void atenderEmbarcacion() {
 		Anden andenSelecc = null;
 		String conf = null;
+		System.out.println();
 		System.out.println("Atendimiento de embarcaciones");
 		System.out.println("=======================================");
 		System.out.println("Seleccione un andén libre: ");
@@ -206,14 +208,13 @@ public class AppMain {
 					&& conf.compareToIgnoreCase("N") != 0);
 			// Asociacion a un anden y quitado de lista de espera
 			if (conf.compareToIgnoreCase("N") == 0 ){
-				imprimirMenu();
+				menu();
 			}else{
 				Embarcacion embAux = (Embarcacion) listaEspera.quitarPrimero();
 				andenSelecc.setEmbEnAtendimiento(embAux);
+				System.out.println("La atencion de la embarcaion se realizo con exito!! ");
+				System.out.println();
 			}
-
-
-
 
 			if (andenSelecc == null)
 				throw new Exception(
@@ -222,8 +223,10 @@ public class AppMain {
 		} catch (DesbordamientoInferior e) {
 			System.out.println("No hay embarcaciones por atender: "
 					+ e.getMessage());
+			System.out.println();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
+			System.out.println();
 			atenderEmbarcacion();
 		}
 
@@ -267,42 +270,29 @@ public class AppMain {
 
 		Embarcacion nuevaEmbarcacion = new Embarcacion();
 		boolean cargaBool;
-
+        System.out.println();
 		System.out.println("Registro de embarcación");
 		System.out.println("=======================");
 		System.out.print("Ingrese el nombre de la embarcación: ");
 		String nombre = sc.next();
-
 		System.out.print("Ingrese la carga en la embarcación: ");
 		String cargado = sc.next();
 
-
 		try {
 			cargaBool = Validacion.esNumero(cargado);
+			if (cargaBool){
+				double carga = Double.parseDouble(cargado);
+				Validacion.negativo(carga);
+				Validacion.validarTextoVacioYCantidad(nombre);
+				nuevaEmbarcacion.setCarga(carga);
+				nuevaEmbarcacion.setNombre(nombre);
+			}
+				
 		} catch (MiExcepcion e1) {
 			System.out.println(e1);
+			System.out.println();
 			registrarEmbarcacion();
 		}
-
-
-		//Validamos antes de registrar.
-		try {
-			double carga = Double.parseDouble(cargado);
-
-			Validacion.negativo(carga);
-			Validacion.validarTextoVacioYCantidad(nombre);
-
-			nuevaEmbarcacion.setCarga(carga);
-			nuevaEmbarcacion.setNombre(nombre);
-
-
-		} catch (MiExcepcion errorCarga) {
-			System.out.println(errorCarga);
-			//Si ocurrio algun error con la carga, se procede a solicitarle al usuario que lo vuelva a intentar.
-			registrarEmbarcacion();
-		}
-
-
 
 		// Agregamos la nueva embarcación a la cola de espera
 		try {
@@ -310,11 +300,13 @@ public class AppMain {
 		} catch (DesbordamientoSuperior e) {
 			System.out
 			.println("Se ha superado la capacidad de atención del puerto, espere a que se vacie la lista y vuelva a intentar");
+			System.out.println();
 		}
 
 	}
 
 	private static void imprimirMenu() {
+		System.out.println();
 		System.out.println("Sistema de Puerto");
 		System.out.println("=================");
 		System.out.println("1- Registrar Embarcación");

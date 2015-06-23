@@ -47,14 +47,14 @@ public class ColaVector implements Cola {
 
 	public Object primero() throws DesbordamientoInferior {
 		if (esVacia())
-			throw new DesbordamientoInferior("Cola Vacia");
+			throw new DesbordamientoInferior("Cola de atencion vacia");
 
 		return S[cabeza];
 	}
 
 	public Object quitarPrimero() throws DesbordamientoInferior {
 		if (esVacia())
-			throw new DesbordamientoInferior("Cola Vacia");
+			throw new DesbordamientoInferior("Cola de atencion vacia");
 		tamanyoActual--;
 		Object aux = S[cabeza];
 		cabeza = incrementar(cabeza);
