@@ -181,7 +181,7 @@ public class AppMain {
 		System.out.println("Seleccione un andén libre: ");
 		if (mostrarAndenesLibres()) {
 			System.out
-			.println(" Ingrese el Identificador del andén a seleccionar: ");
+			.print(" Ingrese el Identificador del andén a seleccionar: ");
 			andenSelecc = seleccionarAnden(sc.nextInt());
 
 		} else {
@@ -195,7 +195,7 @@ public class AppMain {
 
 			do {
 				System.out
-				.println(" ¿Confirma que quiere realizar la operación?(S/N) ");
+				.print(" ¿Confirma que quiere realizar la operación?(S/N): ");
 				conf = sc.next();
 			} while (conf.compareToIgnoreCase("S") != 0
 					&& conf.compareToIgnoreCase("N") != 0);
