@@ -151,20 +151,24 @@ public class AppMain {
 					+ andenSelecc.getEmbEnAtendimiento().getNombre());
 			do {
 				System.out
-				.println("¿Confirma que quiere realizar la operación?(S/N)");
+				.print("¿Confirma que quiere realizar la operación? (S/N): ");
 				conf = sc.next();
 			} while (conf.compareToIgnoreCase("S") != 0
 					&& conf.compareToIgnoreCase("N") != 0);
+			if (conf.compareToIgnoreCase("N") == 0 ){
+				imprimirMenu();
+			}else{
+				// Creación de una nueva descarga de los barcos atendidos
+				descargas.insertar(new Descarga(andenSelecc.getEmbEnAtendimiento(),
+						andenSelecc));
+
+				// Liberación del anden
+				andenSelecc.setEmbEnAtendimiento(null);
+			}
 			if (andenSelecc == null)
 				throw new Exception(
 						"El anden seleccionado no existe, intente nuevamente");
 
-			// Creación de una nueva descarga de los barcos atendidos
-			descargas.insertar(new Descarga(andenSelecc.getEmbEnAtendimiento(),
-					andenSelecc));
-
-			// Liberación del anden
-			andenSelecc.setEmbEnAtendimiento(null);
 
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -195,13 +199,21 @@ public class AppMain {
 
 			do {
 				System.out
-				.print(" ¿Confirma que quiere realizar la operación?(S/N): ");
+				.print(" ¿Confirma que quiere realizar la operación? (S/N): ");
 				conf = sc.next();
+
 			} while (conf.compareToIgnoreCase("S") != 0
 					&& conf.compareToIgnoreCase("N") != 0);
 			// Asociacion a un anden y quitado de lista de espera
-			Embarcacion embAux = (Embarcacion) listaEspera.quitarPrimero();
-			andenSelecc.setEmbEnAtendimiento(embAux);
+			if (conf.compareToIgnoreCase("N") == 0 ){
+				imprimirMenu();
+			}else{
+				Embarcacion embAux = (Embarcacion) listaEspera.quitarPrimero();
+				andenSelecc.setEmbEnAtendimiento(embAux);
+			}
+
+
+
 
 			if (andenSelecc == null)
 				throw new Exception(
