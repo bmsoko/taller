@@ -15,13 +15,17 @@ public class Validacion {
 		return true;
 	}
 
-	public static void negativo(Double carga) throws MiExcepcion{
+	public static void numero(Double carga) throws MiExcepcion{
 		if (carga < 0) {
-			throw new MiExcepcion("Ha ingresado cantidad de carga erronea, la misma no puede ser negativa. Intente nuevamente");
+			throw new MiExcepcion("Ha ingresado cantidad de carga erronea. Intente nuevamente");
 		}
-
+		
+		if (carga == 0) {
+			throw new MiExcepcion("Ha ingresado cantidad de carga erronea. Intente nuevamente.");
+		}
+		
 		if (carga > 99000) {
-			throw new MiExcepcion("Ha ingresado cantidad de carga erronea, la misma no puede superar 99000 Toneladas. Intente nuevamente.");
+			throw new MiExcepcion("Ha ingresado cantidad de carga erronea. Intente nuevamente.");
 		}
 		return;
 	}
@@ -29,7 +33,7 @@ public class Validacion {
 	public static boolean esNumero(String carga) throws MiExcepcion {
 
 		if (!carga.matches("[0-9]*")){
-			throw new MiExcepcion("Ha ingresado un dato erroneo, el mismo no puede ser texto. Intente nuevamente.");	
+			throw new MiExcepcion("Ha ingresado cantidad de carga erronea. Intente nuevamente.");	
 		}
 
 		return true;

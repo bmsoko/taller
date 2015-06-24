@@ -80,12 +80,10 @@ public class AppMain {
 		.println("Listado descendente de embarcaciones por monto facturado");
 		System.out
 		.println("=======================================================");
-		if(descargas.tamanyo()==0){
-			System.out.println("No hay embarcaciones por listar.");
-		}
+	
 		descargas.ultimo();
 		Descarga descAux = null;
-	
+
 
 		while (descargas.getActual().getAnterior() != null) {
 			descAux = (Descarga) descargas.getActual().getDato();
@@ -100,6 +98,9 @@ public class AppMain {
 			descargas.retroceder();
 
 		}
+		if(descargas.tamanyo()==0){
+			System.out.println("No hay embarcaciones por listar.");
+		}
 
 	}
 
@@ -111,7 +112,7 @@ public class AppMain {
 		.println("=======================================================");
 		descargas.primero();
 		Descarga descAux = null;
-		
+
 		if(descargas.tamanyo()==0){
 			System.out.println("No hay embarcaciones por listar.");
 		}
@@ -143,13 +144,10 @@ public class AppMain {
 			System.out
 			.print("Ingrese el Identificador del andén a seleccionar: ");
 			andenSelecc = seleccionarAnden(sc.nextInt());
-		} else {
-			System.out
-			.print("No hay embarcaciones por descargar en los andenes del puerto: ");
-		}
+		} 
 
 		try {
-			System.out.println("La embarcación a descargar es :"
+			System.out.println("La embarcación a descargar es: "
 					+ andenSelecc.getEmbEnAtendimiento().getNombre());
 			do {
 				System.out
@@ -159,6 +157,9 @@ public class AppMain {
 					&& conf.compareToIgnoreCase("N") != 0);
 
 			if (conf.compareToIgnoreCase("N") == 0 ){
+				System.out.println();
+				System.out.println("La descarga se ha cancelado, volviendo al menu principal... ");
+				System.out.println();
 				menu();
 			}else{
 				// Creación de una nueva descarga de los barcos atendidos
@@ -166,16 +167,20 @@ public class AppMain {
 						andenSelecc));
 				// Liberación del anden
 				andenSelecc.setEmbEnAtendimiento(null);
+				System.out.println();
 				System.out.println("La descarga de la embarcaion se realizo con exito!! ");
 				System.out.println();
 			}
 			if (andenSelecc == null)
 				throw new Exception(
 						"El anden seleccionado no existe, intente nuevamente");
+		} catch (DesbordamientoInferior e) {
+			System.out.println("No hay embarcaciones por descargar"
+					+ e.getMessage());
+			System.out.println();	
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			System.out.println("No existen barcos para realizar descarga, intente nuevamente");
 			System.out.println();
-			descargarEmbarcacionesEnAndenes();
 		}
 
 	}
@@ -185,7 +190,7 @@ public class AppMain {
 		String conf = null;
 		System.out.println();
 		System.out.println("Atendimiento de embarcaciones");
-		System.out.println("=======================================");
+		System.out.println("=============================");
 		System.out.println("Seleccione un andén libre: ");
 		if (mostrarAndenesLibres()) {
 			System.out
@@ -210,11 +215,15 @@ public class AppMain {
 					&& conf.compareToIgnoreCase("N") != 0);
 			// Asociacion a un anden y quitado de lista de espera
 			if (conf.compareToIgnoreCase("N") == 0 ){
+				System.out.println();
+				System.out.println("La atencion se ha cancelado, volviendo al menu principal... ");
+				System.out.println();
 				menu();
 			}else{
 				Embarcacion embAux = (Embarcacion) listaEspera.quitarPrimero();
 				andenSelecc.setEmbEnAtendimiento(embAux);
-				System.out.println("La atencion de la embarcaion se realizo con exito!! ");
+				System.out.println();
+				System.out.println("La atencion de la embarcaion se realizo con exito!!");
 				System.out.println();
 			}
 
@@ -256,16 +265,18 @@ public class AppMain {
 	}
 
 	private static boolean mostrarAndenesOcupados() {
-		int cont = 0;
-		for (Anden and : andenes) {
-			if (and.getEmbEnAtendimiento() != null) {
-				System.out.println("Anden Nº " + and.getIdentificador()
-						+ "- Nombre: " + and.getNombre() + "Embarcación: "
-						+ and.getEmbEnAtendimiento().getNombre());
-				cont++;
+		
+			int cont = 0;
+			for (Anden and : andenes) {
+				if (and.getEmbEnAtendimiento() != null) {
+					System.out.println("Anden Nº " + and.getIdentificador()
+							+ "- Nombre: " + and.getNombre() + "Embarcación: "
+							+ and.getEmbEnAtendimiento().getNombre());
+					cont++;
+				}
 			}
-		}
-		return cont > 0;
+		
+		return cont> 0;
 	}
 
 	private static void registrarEmbarcacion() {
@@ -284,14 +295,14 @@ public class AppMain {
 			cargaBool = Validacion.esNumero(cargado);
 			if (cargaBool){
 				double carga = Double.parseDouble(cargado);
-				Validacion.negativo(carga);
+				Validacion.numero(carga);
 				Validacion.validarTextoVacioYCantidad(nombre);
 				nuevaEmbarcacion.setCarga(carga);
 				nuevaEmbarcacion.setNombre(nombre);
 			}
 
 		} catch (MiExcepcion e1) {
-			System.out.println(e1);
+			System.out.println(e1.getMessage());
 			System.out.println();
 			registrarEmbarcacion();
 		}

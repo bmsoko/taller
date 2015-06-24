@@ -19,7 +19,7 @@ public class ColaVector implements Cola {
 	}
 
 	public boolean esVacia() {
-		if (getTamanyoActual() == 0)
+		if (this.getTamanyoActual() == 0)
 			return true;
 		else
 			return false;
