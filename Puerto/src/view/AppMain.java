@@ -24,10 +24,8 @@ public class AppMain {
 
 	private static Scanner sc = new Scanner(System.in);
 	private static ArrayList<Anden> andenes = new ArrayList<Anden>();
-	// private static ArrayList<Descarga> descargas = new ArrayList<Descarga>();
 	private static ColaVector listaEspera = new ColaVector(500);
 	private static int precioPorTonelada = 600;
-	// br1
 	static ListaEnlazadaDoble listado = new ListaEnlazadaDoble();
 	static ListaIteradoraOrdenada descargas = new ListaIteradoraOrdenada(
 			listado);
@@ -42,27 +40,27 @@ public class AppMain {
 	}
 
 	private static void menu() {
-		int option;
+		String option;
 		do {
 			imprimirMenu();
-			option = sc.nextInt();
+			option = sc.next();
 			switch (option) {
-			case 1:
+			case "1":
 				registrarEmbarcacion();
 				break;
-			case 2:
+			case "2":
 				atenderEmbarcacion();
 				break;
-			case 3:
+			case "3":
 				descargarEmbarcacionesEnAndenes();
 				break;
-			case 4:
+			case "4":
 				listarEmbarcacionesAtendidasAscendente();
 				break;
-			case 5:
+			case "5":
 				listarEmbarcacionesAtendidasDescendentes();
 				break;
-			case 6:
+			case "6":
 				System.out
 				.println("Trabajo realizado por Bruno Soko y Franco Funes");
 				break;
@@ -72,20 +70,22 @@ public class AppMain {
 				break;
 			}
 
-		} while (option != 6);
+		} while (option.compareToIgnoreCase("6") != 0);
 
 	}
 
 	private static void listarEmbarcacionesAtendidasDescendentes() {
-		// Aqui se van a listar Ascendentemente e imprimir los barcos que
-		// pasaron por cada anden.
+		System.out.println();
 		System.out
 		.println("Listado descendente de embarcaciones por monto facturado");
 		System.out
 		.println("=======================================================");
-		// Agregar aca la validacion de si esta vacia la lista.
+		if(descargas.tamanyo()==0){
+			System.out.println("No hay embarcaciones por listar.");
+		}
 		descargas.ultimo();
 		Descarga descAux = null;
+	
 
 		while (descargas.getActual().getAnterior() != null) {
 			descAux = (Descarga) descargas.getActual().getDato();
@@ -104,15 +104,17 @@ public class AppMain {
 	}
 
 	private static void listarEmbarcacionesAtendidasAscendente() {
-		// Aqui se van a listar descendentemente e imprimir los barcos que
-		// pasaron por cada anden.
+		System.out.println();
 		System.out
 		.println("Listado ascendente de embarcaciones por monto facturado");
 		System.out
 		.println("=======================================================");
-		// Agregar aca la validacion de si esta vacia la lista.
 		descargas.primero();
 		Descarga descAux = null;
+		
+		if(descargas.tamanyo()==0){
+			System.out.println("No hay embarcaciones por listar.");
+		}
 
 		while (descargas.getActual().getSiguiente() != null) {
 			descAux = (Descarga) descargas.getActual().getDato();
@@ -270,7 +272,7 @@ public class AppMain {
 
 		Embarcacion nuevaEmbarcacion = new Embarcacion();
 		boolean cargaBool;
-        System.out.println();
+		System.out.println();
 		System.out.println("Registro de embarcación");
 		System.out.println("=======================");
 		System.out.print("Ingrese el nombre de la embarcación: ");
@@ -287,7 +289,7 @@ public class AppMain {
 				nuevaEmbarcacion.setCarga(carga);
 				nuevaEmbarcacion.setNombre(nombre);
 			}
-				
+
 		} catch (MiExcepcion e1) {
 			System.out.println(e1);
 			System.out.println();
