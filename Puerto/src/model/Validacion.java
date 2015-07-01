@@ -33,7 +33,7 @@ public class Validacion {
 	public static boolean esNumero(String carga) throws MiExcepcion {
 
 		if (!carga.matches("[0-9]*")){
-			throw new MiExcepcion("Ha ingresado cantidad de carga erronea. Intente nuevamente.");	
+			throw new MiExcepcion("Ha ingresado un numero erroneo. Intente nuevamente.");	
 		}
 
 		return true;

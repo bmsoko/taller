@@ -23,9 +23,13 @@ public class AppMain {
 	 */
 
 	private static Scanner sc = new Scanner(System.in);
+	//arraylist para los andenes.
 	private static ArrayList<Anden> andenes = new ArrayList<Anden>();
+	//cola para manejar la espera de los barcos.
 	private static ColaVector listaEspera = new ColaVector(500);
+	//precio fijo por tonelada.
 	private static int precioPorTonelada = 600;
+	//Implementacion de las listas.
 	static ListaEnlazadaDoble listado = new ListaEnlazadaDoble();
 	static ListaIteradoraOrdenada descargas = new ListaIteradoraOrdenada(
 			listado);
@@ -143,7 +147,7 @@ public class AppMain {
 		if (mostrarAndenesOcupados()) {
 			System.out
 			.print("Ingrese el Identificador del andén a seleccionar: ");
-			andenSelecc = seleccionarAnden(sc.nextInt());
+			andenSelecc = seleccionarAnden(sc.nextInt());	
 		} 
 
 		try {
@@ -288,6 +292,7 @@ public class AppMain {
 		System.out.println("=======================");
 		System.out.print("Ingrese el nombre de la embarcación: ");
 		String nombre = sc.next();
+		
 		System.out.print("Ingrese la carga en la embarcación: ");
 		String cargado = sc.next();
 
@@ -310,6 +315,9 @@ public class AppMain {
 		// Agregamos la nueva embarcación a la cola de espera
 		try {
 			listaEspera.insertar(nuevaEmbarcacion);
+			System.out.println();
+			System.out.println("La Embarcacion ha sido cargada con exito!!");
+			System.out.println();
 		} catch (DesbordamientoSuperior e) {
 			System.out
 			.println("Se ha superado la capacidad de atención del puerto, espere a que se vacie la lista y vuelva a intentar");
